@@ -1,3 +1,8 @@
 151/ Create Layout using Auxi{props.children}
 152/ Adding Burger Builder Component also using Auxi
 153/ Adding dynamic ingredients component using switch(props.type) case():
+154/Adding prop Type into Burger Ingredient.
+155/ Adding BurgerIngredient into Burger and style Burger with Burger.css
+Add the Burger into BurgerBuilder then adding BurgerBuilder into App.js after Layout
+156****/ adding dynamic Burger Ingredient in the Burger.js. Turned the ingredient object state in Burger Builder to array
+using Object.keys(props.ingredient) 

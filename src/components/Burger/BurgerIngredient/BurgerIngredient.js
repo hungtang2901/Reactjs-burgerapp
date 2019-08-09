@@ -10,11 +10,11 @@ class BurgerIngredient extends React.Component{
                    ingredient = <div className={classes.BreadBottom}></div>;
                    break;
                case ('bread-top'):
-                   ingredient = (
-                       <div className={classes.BreadTop}>
-                       <div className={classes.Seed1}></div>
-                       <div className={classes.Seed2}></div>
-                     </div>
+                   ingredient = (                    
+                        <div className={classes.BreadTop}>
+                             <div className={classes.Seed1}></div>
+                             <div className={classes.Seed2}></div>
+                       </div>                     
                    );
                    break;
                case('meat'):

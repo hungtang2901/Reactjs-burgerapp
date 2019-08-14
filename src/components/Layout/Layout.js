@@ -3,7 +3,7 @@ import Auxi from '../../hoc/Auxi';
 import classes from './Layout.css';
 
 
-const layout =(props)=> (
+const layout = ( props )=> (
     <Auxi>
         <div>Toolbar, SideDrawer, Backdrop</div>
         <main className={classes.Content}>

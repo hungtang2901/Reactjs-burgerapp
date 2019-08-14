@@ -2,13 +2,15 @@ import React from 'react';
 import Auxi from '../../hoc/Auxi';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import Modal from '../../components/UI/Modal/Modal'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
     cheese: 1,
     bacon: 2,
     meat: 3
-
 }
 class BurgerBuilder extends React.Component {
     // constructor(props){
@@ -23,12 +25,20 @@ class BurgerBuilder extends React.Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
+    }
+    purchaseHandler = (event) => {
+        this.setState({
+            purchasing: true
+        })
     }
     updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients)
         .map(igKey => {
+            // ingredients[igKey] is the number of each ingredients
             return ingredients[igKey];
+            // call reduce to turn it into the sum of all ingredients
         }).reduce((sum, el)=>{
                 return sum+el;
         },0);
@@ -41,6 +51,7 @@ class BurgerBuilder extends React.Component {
             ...this.state.ingredients
         };
         updatedIngredient[type] = updatedCount;
+
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice +priceAddition;
@@ -67,25 +78,45 @@ class BurgerBuilder extends React.Component {
         );
         this.updatePurchaseState(updatedIngredient);
     }
-
+    //using this refers to the class, not sth else
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+    purchaseContinueHandler =() =>{
+        alert('You continue')
+    }
     render(){
+        // 
         const disabledInfo = {
             ...this.state.ingredients
         };
         //for loop will return true or false for the object
+        // check if ingredient less than 0 and return true false
         for (let key in disabledInfo){
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         //{salad: true, meat: false, bacon: true}
         return (
             <Auxi>
-                <Burger ingredients ={this.state.ingredients}/>
+                <Modal 
+                     modalClosed ={this.purchaseCancelHandler}
+                     show={this.state.purchasing}>
+                    <OrderSummary   
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        ingredients = {this.state.ingredients}
+                        totalPrice = {this.state.totalPrice}/>
+                </Modal>
+                <Burger 
+                    ingredients ={this.state.ingredients}/>
                  <BuildControls 
-                    ingredientAdded = {this.addIngredientHandler}
-                    ingredientRemoved = {this.removeIngredientHandler}
                     disabled = {disabledInfo} 
                     price = {this.state.totalPrice}
-                    purchasable ={this.state.purchasable}/>
+                    purchasable ={this.state.purchasable}
+                    ingredientAdded = {this.addIngredientHandler}
+                    ingredientRemoved = {this.removeIngredientHandler}                  
+                    ordered = {this.purchaseHandler}
+                   />
                     
             </Auxi>
         );

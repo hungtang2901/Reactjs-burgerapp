@@ -25,3 +25,27 @@
     border-bottom: 4px solid #40A4C8;
     color: white;
 }
+
+@media (min-width: 500px) {
+    .NavigationItem {
+        margin: 10px 0;
+        display: block;
+        width: auto;
+    
+    
+    }
+    
+    .NavigationItem a {
+        color: #8F5C2C;
+        width: 100%;
+        box-sizing: border-box;
+        display: block;
+    
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active {
+        color: white;
+    }
+}

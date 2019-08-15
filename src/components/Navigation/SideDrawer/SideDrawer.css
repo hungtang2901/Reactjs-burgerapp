@@ -10,6 +10,7 @@
     left: 0;
     top:0;
     z-index: 200;
+    align-items: center;
 }
 
 @media (min-width: 500px) {
@@ -22,4 +23,8 @@
 }
 .Close {
     transform: translate(-100%)
+}
+.Logo {
+    height: 11%;
+    margin-bottom: 32px;
 }

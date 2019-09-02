@@ -20,6 +20,7 @@
    height: 80%;
     
 }
+/* check if we are on desktop device */
 @media (max-width: 499px) {
     .DesktopOnly {
         display: none;

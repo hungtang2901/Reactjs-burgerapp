@@ -28,6 +28,7 @@ class BurgerBuilder extends React.Component {
         loading: false,
         error: null
     }
+    //get the ingredients from the back-end, fetch data from firebase
     componentDidMount(){
         axios.get("https://reactburger-81f5a.firebaseio.com/ingredients.json")
         .then(response => {
@@ -146,8 +147,10 @@ class BurgerBuilder extends React.Component {
         // if ( this.state.loading) {
         //     orderSummary = <Spinner />;
         // }
+        //SINCE IT TAKES TIME TO FETCH DATA, We need to handle the burger this way.
         let burger = this.state.error? <p>Ingredients cannot be loaded</p>:<Spinner />;
-        if (this.state.ingredients){
+        // if the INGREDIENTS loaded then display the burger
+        if (this.state.ingredients){ 
             burger = (
                 <Auxi>
                      <Burger 
@@ -169,6 +172,7 @@ class BurgerBuilder extends React.Component {
                     totalPrice = {this.state.totalPrice}/>
         }
         // if the loading is true, then show the spinner
+        //CHECK for the loading statement
         if ( this.state.loading) {
             orderSummary = <Spinner />;
         }

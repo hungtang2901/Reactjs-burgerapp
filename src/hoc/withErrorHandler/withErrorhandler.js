@@ -2,6 +2,9 @@ import React,{ Component } from 'react';
 import Modal from '../../components/UI/Modal/Modal';
 import Auxi from '../Auxi/Auxi'
 
+
+//Making a global error handler
+//to get information from component, use axios
 const withErrorHandler = (WrappedCommponent, axios ) => {
     return class extends Component{
         state = {

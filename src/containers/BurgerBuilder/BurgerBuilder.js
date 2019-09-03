@@ -41,11 +41,14 @@ class BurgerBuilder extends React.Component {
             })
         })
     }
+    //burgercontrol_if the order button is clicked, purchasing is true
     purchaseHandler = (event) => {
         this.setState({
             purchasing: true
         })
     }
+    //update ingredient and sum, used in addIngredientHandler and removeIngredientHandler.
+    //Only allow purchase when sum>0
     updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients)
         .map(igKey => {
@@ -57,6 +60,7 @@ class BurgerBuilder extends React.Component {
         },0);
         this.setState({purchasable: sum> 0})
     }
+    //add more ingredients and increase the price
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount+1;
@@ -73,6 +77,7 @@ class BurgerBuilder extends React.Component {
         );
         this.updatePurchaseState(updatedIngredient)
     }
+    //delete ingredients and deduct the price, if old count ===0 return.
     removeIngredientHandler =(type) => {
         const oldCount = this.state.ingredients[type];
         if (oldCount === 0){
@@ -92,11 +97,13 @@ class BurgerBuilder extends React.Component {
         this.updatePurchaseState(updatedIngredient);
     }
     //using this refers to the class, not sth else
+    //used in Modal and Ordersummary, if cancel button is clicked
     purchaseCancelHandler = () => {
         this.setState({purchasing: false});
     }
     purchaseContinueHandler =() =>{
         //alert('You continue')
+        // we are loading the request about to get sent
         this.setState({loading: true})
         const order = {
             ingredients: this.state.ingredients,
@@ -113,6 +120,7 @@ class BurgerBuilder extends React.Component {
             deliveryMethod: 'fastest'
         }
         //for Firebase, need to add .json at the end.
+        // set loading to false, no matter what the response is
         axios.post('/order.json', order)
         .then(response => {
             this.setState({ loading: false, purchasing: false});
@@ -160,6 +168,7 @@ class BurgerBuilder extends React.Component {
                     ingredients = {this.state.ingredients}
                     totalPrice = {this.state.totalPrice}/>
         }
+        // if the loading is true, then show the spinner
         if ( this.state.loading) {
             orderSummary = <Spinner />;
         }
